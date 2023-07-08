@@ -82,14 +82,9 @@ async function changeGrids(a) {
 
   const squares = document.querySelectorAll('.square');
   squares.forEach((square) => {
-<<<<<<< HEAD
-    square.addEventListener('mouseover', () => {
-      let color = 'black';
-      if(rgb.classList.contains('random')){
-=======
+
     square.addEventListener('mouseover', (event) => {
       if(board.classList.contains('draww') && rgb.classList.contains('random')){
->>>>>>> mousedown+mouseover
         square.style.backgroundColor = getRandomHexCode();
       }
       else if (board.classList.contains('draww')) {
