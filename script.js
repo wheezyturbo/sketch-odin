@@ -78,10 +78,7 @@ async function changeGrids(a) {
     square.addEventListener('mouseover', () => {
       let color = 'black';
       if(rgb.classList.contains('random')){
-        setInterval(() => {
-          color = getRandomHexCode();
-        }, 1);
-        square.style.backgroundColor = color;
+        square.style.backgroundColor = getRandomHexCode();
       }
       else if (board.classList.contains('draww')) {
         color = document.querySelector('#picker').value;
