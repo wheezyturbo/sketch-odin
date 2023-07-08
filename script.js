@@ -1,12 +1,27 @@
-const board = document.createElement('div');
-const button = document.getElementById('draw');
+const rgb = document.getElementById('rgb');
 const clear = document.getElementById('clear');
 const container =document.querySelector('.container'); 
 const change = document.getElementById('change');
+const board = document.createElement('div');
 
-board.classList.add('board')
-changeGrids(16);
-container.appendChild(board);
+window.onload = ()=>{
+  board.classList.add('board')
+  changeGrids(16);
+  container.appendChild(board);
+}
+
+rgb.addEventListener('click',()=>{
+  rgb.classList.toggle('random');
+})
+function getRandomHexCode() {
+  var hexCode = '#';
+  var characters = '0123456789ABCDEF';
+  for (var i = 0; i < 6; i++) {
+    hexCode += characters[Math.floor(Math.random() * 16)];
+  }
+  return hexCode;
+}
+
 
 
 clear.addEventListener('click',()=>{
@@ -14,11 +29,11 @@ clear.addEventListener('click',()=>{
   squares.forEach((square)=>{
     square.style.backgroundColor="";
   })
-  button.classList.remove('active');
 })
 
-button.addEventListener('click',()=>{
-  button.classList.toggle('active');
+
+board.addEventListener('click',()=>{
+  board.classList.toggle('draww');
 })
 
 
@@ -26,6 +41,7 @@ button.addEventListener('click',()=>{
 change.addEventListener('click',()=>{
   try{
   const a = prompt('Enter the no of grids in the pad?');
+  if (a == null)return;
   if(a<100 && !isNaN(a)) changeGrids(a);
   else throw Error();
   }
@@ -35,11 +51,11 @@ change.addEventListener('click',()=>{
 })
 
 
-function changeGrids(a) {
-  const boardSize = 480; //since i put the height and width as 480 px in the css
+async function changeGrids(a) {
+  const boardSize = 480; // Total width/height of the board
   const squareSize = boardSize / a;
   board.innerHTML = "";
-  
+
   for (let i = 0; i < a; i++) {
     const row = document.createElement('div');
     row.classList.add('row');
@@ -54,14 +70,22 @@ function changeGrids(a) {
     }
 
     board.appendChild(row);
+    await new Promise(resolve => setTimeout(resolve)); // Wait for the row to be appended
   }
 
-  const button = document.querySelector('#draw');
   const squares = document.querySelectorAll('.square');
   squares.forEach((square) => {
     square.addEventListener('mouseover', () => {
-      if (button.classList.contains('active')) {
-        square.style.backgroundColor = 'red';
+      let color = 'black';
+      if(rgb.classList.contains('random')){
+        setInterval(() => {
+          color = getRandomHexCode();
+        }, 1);
+        square.style.backgroundColor = color;
+      }
+      else if (board.classList.contains('draww')) {
+        color = document.querySelector('#picker').value;
+        square.style.backgroundColor = color;
       }
     });
   });
