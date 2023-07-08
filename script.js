@@ -47,13 +47,13 @@ board.addEventListener('mouseup', () => {
 
 change.addEventListener('click',()=>{
   try{
-  const a = prompt('Enter the no of grids in the pad?');
+  const a = prompt('Enter the no of grids in the pad?(<=100)');
   if (a == null)return;
   if(a<100 && !isNaN(a)) changeGrids(a);
   else throw Error();
   }
   catch{
-    alert('Please enter a valid number!');
+    alert('Please enter a valid number! (<=100)');
   }
 })
 
