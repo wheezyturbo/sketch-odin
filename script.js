@@ -83,8 +83,11 @@ async function changeGrids(a) {
   const squares = document.querySelectorAll('.square');
   squares.forEach((square) => {
     square.addEventListener('mouseover', (event) => {
-      if (board.classList.contains('draww')) {
-        const color = document.querySelector('#picker').value;
+      if(board.classList.contains('draww') && rgb.classList.contains('random')){
+        square.style.backgroundColor = getRandomHexCode();
+      }
+      else if (board.classList.contains('draww')) {
+        color = document.querySelector('#picker').value;
         square.style.backgroundColor = color;
       }
     });
