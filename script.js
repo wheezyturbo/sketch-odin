@@ -32,9 +32,16 @@ clear.addEventListener('click',()=>{
 })
 
 
-board.addEventListener('click',()=>{
-  board.classList.toggle('draww');
-})
+board.addEventListener('mousedown', (e) => {
+  e.preventDefault();
+  board.classList.add('draww');
+});
+
+board.addEventListener('mouseup', () => {
+  board.classList.remove('draww');
+});
+
+
 
 
 
@@ -65,7 +72,7 @@ async function changeGrids(a) {
       square.classList.add('square');
       square.style.width = `${squareSize}px`;
       square.style.height = `${squareSize}px`;
-      square.style.border = '1px solid black';
+      // square.style.border = '1px solid black';
       row.appendChild(square);
     }
 
@@ -75,9 +82,14 @@ async function changeGrids(a) {
 
   const squares = document.querySelectorAll('.square');
   squares.forEach((square) => {
+<<<<<<< HEAD
     square.addEventListener('mouseover', () => {
       let color = 'black';
       if(rgb.classList.contains('random')){
+=======
+    square.addEventListener('mouseover', (event) => {
+      if(board.classList.contains('draww') && rgb.classList.contains('random')){
+>>>>>>> mousedown+mouseover
         square.style.backgroundColor = getRandomHexCode();
       }
       else if (board.classList.contains('draww')) {
